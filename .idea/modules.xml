@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/aws-elasticache-provider/aws-elasticache-provider.iml" filepath="$PROJECT_DIR$/aws-elasticache-provider/aws-elasticache-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/integration-test/integration-test.iml" filepath="$PROJECT_DIR$/integration-test/integration-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jmemcached-maven-plugin/jmemcached-maven-plugin.iml" filepath="$PROJECT_DIR$/jmemcached-maven-plugin/jmemcached-maven-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simple-spring-memcached/simple-spring-memcached.iml" filepath="$PROJECT_DIR$/simple-spring-memcached/simple-spring-memcached.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simple-spring-memcached-parent.iml" filepath="$PROJECT_DIR$/simple-spring-memcached-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cache/spring-cache.iml" filepath="$PROJECT_DIR$/spring-cache/spring-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cache-integration-test/spring-cache-integration-test.iml" filepath="$PROJECT_DIR$/spring-cache-integration-test/spring-cache-integration-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spymemcached-provider/spymemcached-provider.iml" filepath="$PROJECT_DIR$/spymemcached-provider/spymemcached-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xmemcached-provider/xmemcached-provider.iml" filepath="$PROJECT_DIR$/xmemcached-provider/xmemcached-provider.iml" />
+    </modules>
+  </component>
+</project>
