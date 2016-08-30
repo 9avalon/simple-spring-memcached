@@ -67,6 +67,7 @@ class CacheImpl implements Cache {
 
     private volatile CacheClient cacheClient;
 
+    // 注意这里的构造函数，cacheClient只传了一个值进来
     CacheImpl(final String name, final Collection<String> aliases, final CacheClient cacheClient,
             final SerializationType defaultSerializationType, final JsonTranscoder jsonTranscoder, final JavaTranscoder javaTranscoder,
             final CacheTranscoder customTranscoder, final CacheProperties properties) {

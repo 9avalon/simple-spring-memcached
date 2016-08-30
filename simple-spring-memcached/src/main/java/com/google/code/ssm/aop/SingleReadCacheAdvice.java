@@ -44,6 +44,7 @@ abstract class SingleReadCacheAdvice<T extends Annotation> extends CacheAdvice {
         this.annotationClass = annotationClass;
     }
 
+    // pjp获取当前正在执行的方法
     protected Object cache(final ProceedingJoinPoint pjp) throws Throwable {
         if (isDisabled()) {
             getLogger().info("Cache disabled");
@@ -58,12 +59,17 @@ abstract class SingleReadCacheAdvice<T extends Annotation> extends CacheAdvice {
         try {
             final Method methodToCache = getCacheBase().getMethodToCache(pjp);
             getCacheBase().verifyReturnTypeIsNoVoid(methodToCache, annotationClass);
+
             annotation = methodToCache.getAnnotation(annotationClass);
+
+            // 查找序列化方式，如果没注解返回null
             serializationType = getCacheBase().getSerializationType(methodToCache);
             data = AnnotationDataBuilder.buildAnnotationData(annotation, annotationClass, methodToCache);
 
+            // 生成key
             cacheKey = getCacheKey(data, pjp.getArgs(), methodToCache.toString());
 
+            // 查找缓存中值是否存在
             final Object result = getCacheBase().getCache(data).get(cacheKey, serializationType);
             if (result != null) {
                 getLogger().debug("Cache hit.");
@@ -74,11 +80,13 @@ abstract class SingleReadCacheAdvice<T extends Annotation> extends CacheAdvice {
             return pjp.proceed();
         }
 
+        // 方法执行
         final Object result = pjp.proceed();
 
         // This is injected caching. If anything goes wrong in the caching, LOG
         // the crap outta it, but do not let it surface up past the AOP injection itself.
         try {
+            // 如果返回结果为空，则不直接存空，存项目里面的一个定义好的代替null
             final Object submission = getCacheBase().getSubmission(result);
             getCacheBase().getCache(data).set(cacheKey, data.getExpiration(), submission, serializationType);
         } catch (Exception ex) {
@@ -86,6 +94,7 @@ abstract class SingleReadCacheAdvice<T extends Annotation> extends CacheAdvice {
         }
         return result;
     }
+
 
     protected abstract String getCacheKey(final AnnotationData data, final Object[] args, final String methodDesc) throws Exception;
 

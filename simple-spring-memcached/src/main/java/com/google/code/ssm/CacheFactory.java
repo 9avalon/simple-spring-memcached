@@ -51,6 +51,7 @@ import com.google.code.ssm.transcoders.JavaTranscoder;
 import com.google.code.ssm.transcoders.JsonTranscoder;
 
 /**
+ * 缓存工厂
  * Creates cache using provider factory and connection configuration.
  * 
  * @author Nelson Carpentier
@@ -174,6 +175,7 @@ public class CacheFactory implements AddressChangeListener, FactoryBean<Cache>, 
     }
 
     /**
+     * 如注释所说，只会生成一个缓存，但是也没见到有生成多个缓存操作对象的接口吖
      * Only one cache is created.
      * 
      * @return cache

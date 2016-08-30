@@ -26,7 +26,7 @@ import com.google.code.ssm.api.format.SerializationType;
 import com.google.code.ssm.providers.CacheException;
 
 /**
- * 
+ * 具体缓存接口，定义缓存的一系列操作
  * @author Jakub Białek
  * @since 2.0.0
  * 

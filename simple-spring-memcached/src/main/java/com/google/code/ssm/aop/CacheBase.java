@@ -69,11 +69,10 @@ public class CacheBase implements ApplicationContextAware, InitializingBean {
 
     private Settings settings = new Settings();
 
-    private ApplicationContext context;
-
+    // 初始化多个缓存,但是目前只实现了一个
     @Override
     public void afterPropertiesSet() throws Exception {
-    	try {
+        try {
             settings = context.getBean(Settings.class);
         } catch (NoSuchBeanDefinitionException ex) {
             LOG.info("Cannot obtain custom SSM settings, default is used");
@@ -81,8 +80,10 @@ public class CacheBase implements ApplicationContextAware, InitializingBean {
     	
         for (Cache cache : context.getBeansOfType(Cache.class).values()) {
             addCache(cache);
-        }        
+        }
     }
+
+    private ApplicationContext context;
 
     @Override
     public void setApplicationContext(final ApplicationContext applicationContext) {
@@ -207,6 +208,7 @@ public class CacheBase implements ApplicationContextAware, InitializingBean {
         return LOG;
     }
 
+    // 怀疑是管理多个缓存管理器的
     protected void addCache(final Cache cache) {
         if (cache == null) {
             getLogger().warn("One of the cache is null");

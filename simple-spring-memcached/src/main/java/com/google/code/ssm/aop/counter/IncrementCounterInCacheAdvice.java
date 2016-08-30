@@ -58,7 +58,9 @@ public class IncrementCounterInCacheAdvice extends CounterInCacheBase {
         String cacheKey = null;
         IncrementCounterInCache annotation;
         try {
+            // 获取方法
             Method methodToCache = getCacheBase().getMethodToCache(jp);
+            // 获取注解
             annotation = methodToCache.getAnnotation(IncrementCounterInCache.class);
             AnnotationData data = AnnotationDataBuilder.buildAnnotationData(annotation, IncrementCounterInCache.class, methodToCache);
             cacheKey = getCacheBase().getCacheKeyBuilder().getCacheKey(data, jp.getArgs(), methodToCache.toString());

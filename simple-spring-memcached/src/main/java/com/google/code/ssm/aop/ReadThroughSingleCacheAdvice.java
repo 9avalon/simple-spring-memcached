@@ -43,6 +43,7 @@ public class ReadThroughSingleCacheAdvice extends SingleReadCacheAdvice<ReadThro
         super(ReadThroughSingleCache.class);
     }
 
+    // 切入到切面
     @Pointcut("@annotation(com.google.code.ssm.api.ReadThroughSingleCache)")
     public void getSingle() {
         /* pointcut definition */
