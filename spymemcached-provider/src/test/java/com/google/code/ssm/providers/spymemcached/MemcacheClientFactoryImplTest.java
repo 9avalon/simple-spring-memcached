@@ -23,6 +23,7 @@ import java.net.InetSocketAddress;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.code.ssm.providers.CacheClient;
 import net.spy.memcached.FailureMode;
 import net.spy.memcached.metrics.MetricType;
 import net.spy.memcached.metrics.NoopMetricCollector;
@@ -30,7 +31,6 @@ import net.spy.memcached.metrics.NoopMetricCollector;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.code.ssm.providers.CacheClient;
 import com.google.code.ssm.providers.CacheConfiguration;
 
 /**

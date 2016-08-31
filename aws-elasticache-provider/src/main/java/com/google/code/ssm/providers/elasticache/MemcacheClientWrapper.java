@@ -26,6 +26,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.google.code.ssm.providers.AbstractMemcacheClientWrapper;
 import net.spy.memcached.CachedData;
 import net.spy.memcached.MemcachedClientIF;
 import net.spy.memcached.OperationTimeoutException;
@@ -34,7 +35,6 @@ import net.spy.memcached.transcoders.Transcoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.code.ssm.providers.AbstractMemcacheClientWrapper;
 import com.google.code.ssm.providers.CacheException;
 import com.google.code.ssm.providers.CacheTranscoder;
 import com.google.code.ssm.providers.CachedObject;

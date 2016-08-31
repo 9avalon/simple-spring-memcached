@@ -17,9 +17,8 @@
 
 package com.google.code.ssm.providers.elasticache;
 
-import net.spy.memcached.CachedData;
-
 import com.google.code.ssm.providers.CachedObject;
+import net.spy.memcached.CachedData;
 
 /**
  * 

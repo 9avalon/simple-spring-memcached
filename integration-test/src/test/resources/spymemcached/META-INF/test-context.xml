@@ -20,7 +20,7 @@
 
 	<bean name="defaultMemcachedClient" class="com.google.code.ssm.CacheFactory">
 		<property name="cacheClientFactory">
-			<bean class="com.google.code.ssm.providers.spymemcached.MemcacheClientFactoryImpl" />
+			<bean class="MemcacheClientFactoryImpl" />
 		</property>
 		<property name="addressProvider">
 			<bean class="com.google.code.ssm.config.DefaultAddressProvider">
@@ -38,7 +38,7 @@
 
 	<bean name="memcachedClient1" class="com.google.code.ssm.CacheFactory">
 		<property name="cacheClientFactory">
-			<bean class="com.google.code.ssm.providers.spymemcached.MemcacheClientFactoryImpl" />
+			<bean class="MemcacheClientFactoryImpl" />
 		</property>
 		<property name="addressProvider">
 			<bean class="com.google.code.ssm.config.DefaultAddressProvider">

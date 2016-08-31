@@ -24,11 +24,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import com.google.code.ssm.providers.CacheClient;
 import com.google.code.ssm.providers.CacheConfiguration;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * 

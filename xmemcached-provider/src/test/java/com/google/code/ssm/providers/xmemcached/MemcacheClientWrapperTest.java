@@ -27,6 +27,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
+import com.google.code.ssm.providers.CacheTranscoder;
+import com.google.code.ssm.providers.CacheException;
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
 import net.rubyeye.xmemcached.transcoders.Transcoder;
@@ -34,9 +36,6 @@ import net.rubyeye.xmemcached.transcoders.Transcoder;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.google.code.ssm.providers.CacheException;
-import com.google.code.ssm.providers.CacheTranscoder;
 
 /**
  * 

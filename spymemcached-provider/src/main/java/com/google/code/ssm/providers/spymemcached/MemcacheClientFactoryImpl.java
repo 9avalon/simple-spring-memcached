@@ -21,16 +21,15 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
 
+import com.google.code.ssm.providers.CacheClient;
+import com.google.code.ssm.providers.CacheClientFactory;
+import com.google.code.ssm.providers.CacheConfiguration;
 import net.spy.memcached.ConnectionFactory;
 import net.spy.memcached.ConnectionFactoryBuilder;
 import net.spy.memcached.ConnectionFactoryBuilder.Locator;
 import net.spy.memcached.ConnectionFactoryBuilder.Protocol;
 import net.spy.memcached.DefaultHashAlgorithm;
 import net.spy.memcached.MemcachedClient;
-
-import com.google.code.ssm.providers.CacheClient;
-import com.google.code.ssm.providers.CacheClientFactory;
-import com.google.code.ssm.providers.CacheConfiguration;
 
 /**
  * 

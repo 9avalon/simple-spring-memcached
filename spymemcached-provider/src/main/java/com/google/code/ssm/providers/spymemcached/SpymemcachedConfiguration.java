@@ -20,6 +20,7 @@ package com.google.code.ssm.providers.spymemcached;
 import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 
+import com.google.code.ssm.providers.CacheConfiguration;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.spy.memcached.ConnectionFactoryBuilder;
@@ -31,8 +32,6 @@ import net.spy.memcached.auth.AuthDescriptor;
 import net.spy.memcached.metrics.MetricCollector;
 import net.spy.memcached.metrics.MetricType;
 import net.spy.memcached.transcoders.Transcoder;
-
-import com.google.code.ssm.providers.CacheConfiguration;
 
 /**
  * Allows to set provider specific settings. If property is not set (null) default value defined by provider will be

@@ -21,6 +21,7 @@ import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.Map;
 
+import com.google.code.ssm.providers.CacheConfiguration;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.rubyeye.xmemcached.MemcachedClient;
@@ -30,7 +31,6 @@ import net.rubyeye.xmemcached.XMemcachedClientBuilder;
 import net.rubyeye.xmemcached.auth.AuthInfo;
 import net.rubyeye.xmemcached.transcoders.Transcoder;
 
-import com.google.code.ssm.providers.CacheConfiguration;
 import com.google.code.yanf4j.config.Configuration;
 import com.google.code.yanf4j.core.SocketOption;
 

@@ -42,7 +42,7 @@ and define connection to memcached on localhost:
 
       <bean name="defaultMemcachedClient" class="com.google.code.ssm.CacheFactory">
           <property name="cacheClientFactory">
-                <bean class="com.google.code.ssm.providers.xmemcached.MemcacheClientFactoryImpl" />
+                <bean class="MemcacheClientFactoryImpl" />
           </property>
           <property name="addressProvider">
                 <bean class="com.google.code.ssm.config.DefaultAddressProvider">
@@ -50,7 +50,7 @@ and define connection to memcached on localhost:
                 </bean>
           </property>
           <property name="configuration">
-                <bean class="com.google.code.ssm.providers.CacheConfiguration">
+                <bean class="CacheConfiguration">
                       <property name="consistentHashing" value="true" />
                 </bean>
           </property>

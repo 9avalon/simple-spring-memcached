@@ -28,16 +28,14 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.google.code.ssm.providers.CacheException;
+import com.google.code.ssm.providers.CacheTranscoder;
 import net.spy.memcached.MemcachedClientIF;
 import net.spy.memcached.transcoders.Transcoder;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.google.code.ssm.providers.CacheException;
-import com.google.code.ssm.providers.CacheTranscoder;
-import com.google.code.ssm.providers.elasticache.MemcacheClientWrapper;
 
 /**
  * 

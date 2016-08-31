@@ -22,16 +22,16 @@ import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.Map;
 
+import com.google.code.ssm.providers.CacheClient;
+import com.google.code.ssm.providers.CacheClientFactory;
+import com.google.code.ssm.providers.CachedObject;
+import com.google.code.ssm.providers.CacheConfiguration;
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.XMemcachedClientBuilder;
 import net.rubyeye.xmemcached.command.BinaryCommandFactory;
 import net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator;
 import net.rubyeye.xmemcached.transcoders.SerializingTranscoder;
 
-import com.google.code.ssm.providers.CacheClient;
-import com.google.code.ssm.providers.CacheClientFactory;
-import com.google.code.ssm.providers.CacheConfiguration;
-import com.google.code.ssm.providers.CachedObject;
 import com.google.code.yanf4j.core.SocketOption;
 
 /**

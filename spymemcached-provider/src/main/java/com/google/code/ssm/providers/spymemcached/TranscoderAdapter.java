@@ -17,10 +17,10 @@
 
 package com.google.code.ssm.providers.spymemcached;
 
+import com.google.code.ssm.providers.CacheTranscoder;
 import net.spy.memcached.CachedData;
 import net.spy.memcached.transcoders.Transcoder;
 
-import com.google.code.ssm.providers.CacheTranscoder;
 import com.google.code.ssm.providers.CachedObject;
 
 /**

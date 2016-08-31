@@ -52,7 +52,7 @@ import com.google.code.ssm.spring.test.service.TestService;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
-@ContextConfiguration(locations = { "classpath*:simplesm-context.xml", "classpath*:test-application-context.xml" })
+@ContextConfiguration(locations = {"classpath*:simplesm-jedis.xml", "classpath*:test-application-context.xml" })
 public class CacheProviderErrorsTest {
 
     @SuppressWarnings("rawtypes")

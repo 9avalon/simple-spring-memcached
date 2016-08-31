@@ -19,7 +19,6 @@ package com.google.code.ssm.providers.elasticache;
 import static org.junit.Assert.assertEquals;
 
 import com.google.code.ssm.providers.CachedObject;
-import com.google.code.ssm.providers.elasticache.CachedObjectWrapper;
 
 import net.spy.memcached.CachedData;
 

@@ -17,12 +17,11 @@
 
 package com.google.code.ssm.providers.xmemcached;
 
+import com.google.code.ssm.providers.CacheTranscoder;
+import com.google.code.ssm.providers.CachedObject;
 import net.rubyeye.xmemcached.transcoders.CachedData;
 import net.rubyeye.xmemcached.transcoders.CompressionMode;
 import net.rubyeye.xmemcached.transcoders.Transcoder;
-
-import com.google.code.ssm.providers.CacheTranscoder;
-import com.google.code.ssm.providers.CachedObject;
 
 /**
  * 

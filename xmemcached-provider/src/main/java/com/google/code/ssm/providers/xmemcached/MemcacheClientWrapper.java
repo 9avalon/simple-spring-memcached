@@ -28,6 +28,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
+import com.google.code.ssm.providers.AbstractMemcacheClientWrapper;
+import com.google.code.ssm.providers.CacheTranscoder;
+import com.google.code.ssm.providers.CachedObject;
+import com.google.code.ssm.providers.CachedObjectImpl;
+import com.google.code.ssm.providers.CacheException;
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
 import net.rubyeye.xmemcached.transcoders.CachedData;
@@ -35,12 +40,6 @@ import net.rubyeye.xmemcached.transcoders.Transcoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.code.ssm.providers.AbstractMemcacheClientWrapper;
-import com.google.code.ssm.providers.CacheException;
-import com.google.code.ssm.providers.CacheTranscoder;
-import com.google.code.ssm.providers.CachedObject;
-import com.google.code.ssm.providers.CachedObjectImpl;
 
 /**
  * 

@@ -19,6 +19,7 @@ package com.google.code.ssm.providers.elasticache;
 
 import java.util.Collection;
 
+import com.google.code.ssm.providers.CacheConfiguration;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.spy.memcached.ConnectionFactoryBuilder;
@@ -29,8 +30,6 @@ import net.spy.memcached.FailureMode;
 import net.spy.memcached.HashAlgorithm;
 import net.spy.memcached.auth.AuthDescriptor;
 import net.spy.memcached.transcoders.Transcoder;
-
-import com.google.code.ssm.providers.CacheConfiguration;
 
 /**
  * Allows to set provider specific settings. If property is not set (null) default value defined by provider will be

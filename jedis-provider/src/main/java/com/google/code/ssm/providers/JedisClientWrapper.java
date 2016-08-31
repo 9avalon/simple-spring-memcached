@@ -1,5 +1,13 @@
 package com.google.code.ssm.providers;
 
+import com.google.code.ssm.providers.util.SerializeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPool;
+
 import java.net.SocketAddress;
 import java.util.Collection;
 import java.util.Map;
@@ -11,18 +19,26 @@ import java.util.concurrent.TimeoutException;
  * @email mingjian_hou@kingdee.com
  * @time 2016/8/30
  */
+@Repository("jedisClientWrapper")
 public class JedisClientWrapper extends AbstractRedisClientWrapper {
+    Logger LOG = LoggerFactory.getLogger(JedisClientWrapper.class);
 
-    private final JedisClient jedisClient;
-
-    public JedisClientWrapper(JedisClient jedisClient) {
-        this.jedisClient = jedisClient;
-    }
+    @Autowired
+    private ShardedJedisPool shardedJedisPool;
 
     @Override
     public boolean add(String key, int exp, Object value) throws TimeoutException, CacheException {
-
-        return false;
+        ShardedJedis shardedJedis = shardedJedisPool.getResource();
+        try {
+            shardedJedis.set(key.getBytes(), SerializeUtil.serialize(value));
+            shardedJedis.expire(key.getBytes(), exp);
+            return true;
+        } catch (Exception e) {
+            LOG.error("add cache fail", e);
+            return false;
+        } finally {
+            shardedJedis.close();
+        }
     }
 
     @Override
@@ -57,7 +73,18 @@ public class JedisClientWrapper extends AbstractRedisClientWrapper {
 
     @Override
     public Object get(String key) throws TimeoutException, CacheException {
-        return null;
+        ShardedJedis shardedJedis = shardedJedisPool.getResource();
+
+        try {
+            String result = shardedJedis.get(key);
+            return SerializeUtil.unserialize(result.getBytes());
+        } catch (Exception e) {
+            LOG.error("get cache fail", e);
+            return null;
+        } finally {
+            shardedJedis.close();
+        }
+
     }
 
     @Override
