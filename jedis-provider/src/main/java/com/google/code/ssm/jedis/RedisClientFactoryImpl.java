@@ -1,5 +1,8 @@
-package com.google.code.ssm.providers;
+package com.google.code.ssm.jedis;
 
+import com.google.code.ssm.providers.CacheClient;
+import com.google.code.ssm.providers.CacheClientFactory;
+import com.google.code.ssm.providers.CacheConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -14,7 +17,7 @@ import java.util.List;
  * @time 2016/8/30
  */
 @Resource
-public class RedisClientFactoryImpl implements CacheClientFactory{
+public class RedisClientFactoryImpl implements CacheClientFactory {
     @Autowired
     JedisClientWrapper jedisClientWrapper;
 

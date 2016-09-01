@@ -15,7 +15,6 @@
         <property name="maxWaitMillis" value="1000" />
         <property name="testOnBorrow" value="true"/>
         <property name="testOnReturn" value="true"/>
-        
     </bean>
 
     <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
@@ -29,6 +28,5 @@
                 </bean>
             </list>
         </constructor-arg>
-
     </bean>
 </beans>

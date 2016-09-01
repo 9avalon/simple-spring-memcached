@@ -5,12 +5,117 @@
     <parent>
         <artifactId>simple-spring-memcached-parent</artifactId>
         <groupId>com.google.code.simple-spring-memcached</groupId>
-        <version>3.6.1</version>
+        <version>3.6.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.google.code.simple-spring-memcached</groupId>
     <artifactId>jedis-test</artifactId>
 
+    <properties>
+        <!-- Plugin的属性定义 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 主要依赖库的版本定义 -->
+        <practice-center.version>1.0-SNAPSHOT</practice-center.version>
+        <!-- spring版本号 -->
+        <spring.version>3.0.7.RELEASE</spring.version>
+        <!-- mybatis版本号 -->
+        <mybatis.version>3.2.0</mybatis.version>
+        <mybatis-spring.version>1.1.1</mybatis-spring.version>
+        <druid.version>1.0.2</druid.version>
+        <!-- log4j日志文件管理包版本 -->
+        <slf4j.version>1.7.7</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <!--mysql连接版本-->
+        <mysql-conn.version>5.1.29</mysql-conn.version>
+        <!--mybatis分页插件-->
+        <pagehelper.version>4.1.6</pagehelper.version>
+        <!--定时任务-->
+        <quartz.version>1.8.6</quartz.version>
+        <!--JMS-->
+        <activemq.version>5.7.0</activemq.version>
+        <!-- xmemcached -->
+        <xmemcached.version>1.4.3</xmemcached.version>
+        <!--simple-memcached-version-->
+        <simple-spring-memcached.version>3.6.1</simple-spring-memcached.version>
+        <!-- jedis-->
+        <jedis.version>2.1.0</jedis.version>
+        <!--spring redis-->
+        <spring-redis.version>1.7.2.RELEASE</spring-redis.version>
+    </properties>
 
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.simple-spring-memcached</groupId>
+            <artifactId>simple-spring-memcached</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.simple-spring-memcached</groupId>
+            <artifactId>jedis-provider</artifactId>
+            <version>3.6.2-SNAPSHOT</version>
+        </dependency>
+
+        <!-- spring开始 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!--junit-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <!-- 表示开发的时候引入，发布的时候不会加载此包 -->
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

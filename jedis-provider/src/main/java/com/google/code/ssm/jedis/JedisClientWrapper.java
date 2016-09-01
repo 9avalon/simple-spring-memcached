@@ -1,6 +1,11 @@
-package com.google.code.ssm.providers;
+package com.google.code.ssm.jedis;
 
-import com.google.code.ssm.providers.util.SerializeUtil;
+import com.alibaba.fastjson.JSON;
+import com.google.code.ssm.jedis.util.SerializeUtil;
+import com.google.code.ssm.mapper.JsonObjectMapper;
+import com.google.code.ssm.providers.AbstractRedisClientWrapper;
+import com.google.code.ssm.providers.CacheException;
+import com.google.code.ssm.providers.CacheTranscoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +48,7 @@ public class JedisClientWrapper extends AbstractRedisClientWrapper {
 
     @Override
     public <T> boolean add(String key, int exp, T value, CacheTranscoder transcoder) throws TimeoutException, CacheException {
+        LOG.info("test1");
         return false;
     }
 
@@ -77,6 +83,12 @@ public class JedisClientWrapper extends AbstractRedisClientWrapper {
 
         try {
             String result = shardedJedis.get(key);
+
+            // 该key没有缓存
+            if (null == result) {
+                return null;
+            }
+
             return SerializeUtil.unserialize(result.getBytes());
         } catch (Exception e) {
             LOG.error("get cache fail", e);
@@ -134,7 +146,18 @@ public class JedisClientWrapper extends AbstractRedisClientWrapper {
 
     @Override
     public boolean set(String key, int exp, Object value) throws TimeoutException, CacheException {
-        return false;
+        ShardedJedis shardedJedis = shardedJedisPool.getResource();
+        try {
+
+            shardedJedis.set(key.getBytes(), SerializeUtil.serialize(value));
+            shardedJedis.expire(key.getBytes(), exp);
+            return true;
+        } catch (Exception e) {
+            LOG.error("add cache fail", e);
+            return false;
+        } finally {
+            shardedJedis.close();
+        }
     }
 
     @Override

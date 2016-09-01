@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <aop:aspectj-autoproxy />
+
+    <context:component-scan base-package="com.google.code.ssm.jedistest.service" />
+
+    <import resource="classpath*:simplesm-jedis.xml" />
+    <import resource="classpath*:simplesm-context.xml" />
+
+    <bean name="defaultMemcachedClient" class="com.google.code.ssm.CacheFactory">
+        <property name="cacheClientFactory">
+            <bean name="cacheClientFactory" class="com.google.code.ssm.jedis.RedisClientFactoryImpl" />
+        </property>
+        
+        <property name="addressProvider">
+            <bean class="com.google.code.ssm.config.DefaultAddressProvider">
+                <property name="address" value="121.42.51.33:6379" />
+            </bean>
+        </property>
+
+        <property name="configuration">
+            <bean class="com.google.code.ssm.providers.CacheConfiguration">
+                <property name="consistentHashing" value="true"/>
+            </bean>
+        </property>
+    </bean>
+</beans>

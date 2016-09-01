@@ -1,4 +1,4 @@
-package com.google.code.ssm.providers;
+package com.google.code.ssm.jedis;
 
 /**
  * @version 1.0

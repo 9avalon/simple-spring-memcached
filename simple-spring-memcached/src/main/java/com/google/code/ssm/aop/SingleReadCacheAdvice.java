@@ -21,6 +21,7 @@ package com.google.code.ssm.aop;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
+import com.google.code.ssm.Cache;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import com.google.code.ssm.aop.support.AnnotationData;
@@ -88,7 +89,9 @@ abstract class SingleReadCacheAdvice<T extends Annotation> extends CacheAdvice {
         try {
             // 如果返回结果为空，则不直接存空，存项目里面的一个定义好的代替null
             final Object submission = getCacheBase().getSubmission(result);
-            getCacheBase().getCache(data).set(cacheKey, data.getExpiration(), submission, serializationType);
+            Cache cache = getCacheBase().getCache(data);
+            cache.set(cacheKey, data.getExpiration(), submission, serializationType);
+//            getCacheBase().getCache(data).set(cacheKey, data.getExpiration(), submission, serializationType);
         } catch (Exception ex) {
             warn(ex, "Caching on method %s and key [%s] aborted due to an error.", pjp.toShortString(), cacheKey);
         }

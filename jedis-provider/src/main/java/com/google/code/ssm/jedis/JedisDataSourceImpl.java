@@ -1,4 +1,4 @@
-package com.google.code.ssm.providers;
+package com.google.code.ssm.jedis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
