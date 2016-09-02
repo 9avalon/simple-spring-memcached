@@ -100,5 +100,4 @@ abstract class SingleReadCacheAdvice<T extends Annotation> extends CacheAdvice {
 
 
     protected abstract String getCacheKey(final AnnotationData data, final Object[] args, final String methodDesc) throws Exception;
-
 }

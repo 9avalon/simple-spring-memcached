@@ -20,7 +20,7 @@ public class CacheTest{
 
     @Test
     public void testCache() {
-        aopService.readFromCache(123456789L);
-        aopService.readFromCache(123456789L);
+        aopService.readFromCache(12345678L);
+//        aopService.readFromCache(123456789L);
     }
 }

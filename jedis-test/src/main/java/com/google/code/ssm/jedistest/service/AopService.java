@@ -8,5 +8,5 @@ package com.google.code.ssm.jedistest.service;
  */
 public interface AopService {
 
-    public Long readFromCache(Long key);
+    public String readFromCache(Long key);
 }

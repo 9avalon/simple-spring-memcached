@@ -15,6 +15,6 @@ public class FastJsonUtils {
     }
 
     public static String object2String(Object object) {
-
+        return JSON.toJSONString(object);
     }
 }

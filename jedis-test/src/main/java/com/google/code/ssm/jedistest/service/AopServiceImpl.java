@@ -16,9 +16,9 @@ public class AopServiceImpl implements AopService{
 
     @Override
     @ReadThroughSingleCache(namespace = "aoptest", expiration = 3600)
-    public Long readFromCache(@ParameterValueKeyProvider Long key) {
+    public String readFromCache(@ParameterValueKeyProvider Long key) {
         System.out.println("从数据库中读取:" + key);
-        return 0L;
+        return "string";
     }
 
 }
