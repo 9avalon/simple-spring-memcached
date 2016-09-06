@@ -1,6 +1,6 @@
 package com.google.code.ssm.jedis;
 
-import com.google.code.ssm.jedis.util.FastJsonUtils;
+import com.google.code.ssm.jedis.util.SerializeUtil;
 import com.google.code.ssm.providers.AbstractRedisClientWrapper;
 import com.google.code.ssm.providers.CacheException;
 import com.google.code.ssm.providers.CacheTranscoder;
@@ -13,6 +13,7 @@ import redis.clients.jedis.ShardedJedisPool;
 
 import java.net.SocketAddress;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
@@ -24,10 +25,12 @@ import java.util.concurrent.TimeoutException;
  */
 @Repository("jedisClientWrapper")
 public class JedisClientWrapper extends AbstractRedisClientWrapper {
-    Logger LOG = LoggerFactory.getLogger(JedisClientWrapper.class);
+    Logger logger = LoggerFactory.getLogger(JedisClientWrapper.class);
 
     @Autowired
     private ShardedJedisPool shardedJedisPool;
+
+    // 构造函数，传入shardJedisPool
 
     @Override
     public boolean add(String key, int exp, Object value) throws TimeoutException, CacheException {
@@ -36,7 +39,6 @@ public class JedisClientWrapper extends AbstractRedisClientWrapper {
 
     @Override
     public <T> boolean add(String key, int exp, T value, CacheTranscoder transcoder) throws TimeoutException, CacheException {
-        LOG.info("test1");
         return false;
     }
 
@@ -52,12 +54,21 @@ public class JedisClientWrapper extends AbstractRedisClientWrapper {
 
     @Override
     public boolean delete(String key) throws TimeoutException, CacheException {
-        return false;
+        ShardedJedis shardedJedis = shardedJedisPool.getResource();
+
+        try {
+            shardedJedis.del(key);
+        } catch (Exception e) {
+            logger.error("fail to delete the cache", e);
+            return false;
+        } finally {
+            shardedJedis.close();
+        }
+        return true;
     }
 
     @Override
     public void delete(Collection<String> keys) throws TimeoutException, CacheException {
-
     }
 
     @Override
@@ -70,16 +81,17 @@ public class JedisClientWrapper extends AbstractRedisClientWrapper {
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
 
         try {
-            String result = shardedJedis.get(key);
+            String strValue = shardedJedis.get(key);
 
-            // 该key没有缓存
-            if (null == result) {
+            if (null == strValue) {
                 return null;
             }
 
-            return FastJsonUtils.string2Object(result);
+            // 反序列化
+            Object value = SerializeUtil.unserialize(strValue);
+            return value;
         } catch (Exception e) {
-            LOG.error("get cache fail", e);
+            logger.error("get cache fail", e);
             return null;
         } finally {
             shardedJedis.close();
@@ -104,7 +116,24 @@ public class JedisClientWrapper extends AbstractRedisClientWrapper {
 
     @Override
     public Map<String, Object> getBulk(Collection<String> keys) throws TimeoutException, CacheException {
-        return null;
+        ShardedJedis shardedJedis = shardedJedisPool.getResource();
+
+        Map<String, Object> resultMap = null;
+        try {
+            resultMap = new HashMap<String, Object>();
+            for (String s : keys) {
+                Object o = shardedJedis.get(s);
+                if (null != o) {
+                    resultMap.put(s, o);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("fail to get mulit cache value", e);
+        } finally {
+            shardedJedis.close();
+        }
+
+        return resultMap;
     }
 
     @Override
@@ -136,11 +165,13 @@ public class JedisClientWrapper extends AbstractRedisClientWrapper {
     public boolean set(String key, int exp, Object value) throws TimeoutException, CacheException {
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         try {
-            shardedJedis.set(key, FastJsonUtils.object2String(value));
-            shardedJedis.expire(key.getBytes(), exp);
+            String str = SerializeUtil.serialize(value);
+            shardedJedis.set(key, str);
+//            shardedJedis.set(key, Base64.getBase64(str));
+            shardedJedis.expire(key, exp);
             return true;
         } catch (Exception e) {
-            LOG.error("add cache fail", e);
+            logger.error("add cache fail", e);
             return false;
         } finally {
             shardedJedis.close();

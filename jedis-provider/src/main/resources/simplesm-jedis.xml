@@ -22,7 +22,7 @@
         <constructor-arg index="1">
             <list>
                 <bean class="redis.clients.jedis.JedisShardInfo">
-                    <constructor-arg name="host" value="121.42.51.33" />
+                    <constructor-arg name="host" value="127.0.0.1" />
                     <constructor-arg name="port" value="6379" />
                     <constructor-arg name="timeout" value="10000" />
                 </bean>

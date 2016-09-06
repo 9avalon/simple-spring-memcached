@@ -83,7 +83,7 @@ abstract class SingleReadCacheAdvice<T extends Annotation> extends CacheAdvice {
 
         // 方法执行
         final Object result = pjp.proceed();
-
+        System.out.println(result.getClass().getName());
         // This is injected caching. If anything goes wrong in the caching, LOG
         // the crap outta it, but do not let it surface up past the AOP injection itself.
         try {

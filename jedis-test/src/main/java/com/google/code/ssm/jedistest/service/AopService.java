@@ -1,5 +1,7 @@
 package com.google.code.ssm.jedistest.service;
 
+import java.util.List;
+
 /**
  * @version 1.0
  * @author: 侯铭健
@@ -8,5 +10,13 @@ package com.google.code.ssm.jedistest.service;
  */
 public interface AopService {
 
-    public String readFromCache(Long key);
+    public UserPO readFromCache(Long key);
+
+    public UserPO readFromCacheAssign(Long key);
+
+    public List<UserPO> readFromMuiltCache(List<Integer> uids);
+
+    public void updateCache(Integer key, UserPO userPO);
+
+    public void delCacheSimple(Integer key);
 }
