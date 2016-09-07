@@ -1,11 +1,17 @@
 package com.google.code.ssm.jedis;
 
+import com.google.code.ssm.jedis.config.ShardJedisInfo;
+import com.google.code.ssm.jedis.config.ShardJedisPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @version 1.0
@@ -17,19 +23,36 @@ import redis.clients.jedis.ShardedJedisPool;
 public class JedisPoolBuilder {
     Logger LOG = LoggerFactory.getLogger(JedisPoolBuilder.class);
 
-    private JedisPoolConfig config;
+    private ShardJedisPoolConfig config;
 
-    private static ShardedJedisPool shardedJedisPool = null;
+    private static volatile ShardedJedisPool shardedJedisPool = null;
 
-    
-
-    public ShardedJedis getRedisClient() {
-        try {
-            return shardedJedisPool.getResource();
-        } catch (Exception e) {
-            LOG.error("get reids client fail", e);
+    public static ShardedJedisPool getJedisPool(ShardJedisPoolConfig config, List<ShardJedisInfo> infoList) {
+        // single
+        if (shardedJedisPool == null) {
+            synchronized (JedisPoolBuilder.class) {
+                if (shardedJedisPool == null) {
+                    shardedJedisPool = initShardedJedisPool(config, infoList);
+                }
+            }
         }
-        return null;
+        return shardedJedisPool;
+    }
+
+    private static ShardedJedisPool initShardedJedisPool(ShardJedisPoolConfig shardConfig, List<ShardJedisInfo> infoList) {
+        JedisPoolConfig config = new JedisPoolConfig();
+
+        config.setMaxIdle(shardConfig.getMaxIdle());
+        config.setMaxWaitMillis(shardConfig.getMaxWaitMinute());
+        config.setMaxTotal(shardConfig.getMaxTotal());
+
+        List<JedisShardInfo> shardInfoList = new ArrayList<JedisShardInfo>();
+        for (ShardJedisInfo info : infoList) {
+            JedisShardInfo jedisShardInfo = new JedisShardInfo(info.getUrl(), info.getPort());
+            shardInfoList.add(jedisShardInfo);
+        }
+
+        return new ShardedJedisPool(config, shardInfoList);
     }
 
 

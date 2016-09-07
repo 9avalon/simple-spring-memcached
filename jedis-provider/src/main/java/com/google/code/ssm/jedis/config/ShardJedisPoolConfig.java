@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * Created by Avalon on 2016/9/4.
  */
 @Repository("jedisPoolConfig")
-public class JedisPoolConfig {
+public class ShardJedisPoolConfig {
 
     private Integer maxTotal;
 

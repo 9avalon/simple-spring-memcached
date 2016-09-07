@@ -23,14 +23,15 @@ import java.util.concurrent.TimeoutException;
  * @email mingjian_hou@kingdee.com
  * @time 2016/8/30
  */
-@Repository("jedisClientWrapper")
 public class JedisClientWrapper extends AbstractRedisClientWrapper {
     Logger logger = LoggerFactory.getLogger(JedisClientWrapper.class);
 
-    @Autowired
     private ShardedJedisPool shardedJedisPool;
 
     // 构造函数，传入shardJedisPool
+    public JedisClientWrapper(ShardedJedisPool pool) {
+        shardedJedisPool = pool;
+    }
 
     @Override
     public boolean add(String key, int exp, Object value) throws TimeoutException, CacheException {

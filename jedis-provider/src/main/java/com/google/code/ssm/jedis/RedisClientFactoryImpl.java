@@ -1,12 +1,14 @@
 package com.google.code.ssm.jedis;
 
-import com.google.code.ssm.jedis.config.JedisPoolConfig;
+import com.google.code.ssm.jedis.config.ShardJedisInfo;
+import com.google.code.ssm.jedis.config.ShardJedisPoolConfig;
 import com.google.code.ssm.providers.CacheClient;
 import com.google.code.ssm.providers.CacheClientFactory;
 import com.google.code.ssm.providers.CacheConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import redis.clients.jedis.ShardedJedisPool;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
@@ -17,26 +19,31 @@ import java.util.List;
  * @email mingjian_hou@kingdee.com
  * @time 2016/8/30
  */
-@Resource
+@Component
 public class RedisClientFactoryImpl implements CacheClientFactory {
-    @Autowired
-    JedisClientWrapper jedisClientWrapper;
-
-    JedisPoolConfig config;
+    // 配置文件
+    ShardJedisPoolConfig config;
+    List<ShardJedisInfo> infoList;
 
     @Override
     public CacheClient create(List<InetSocketAddress> addrs, CacheConfiguration configuration) throws IOException {
-
-        // todo 删除
-        System.out.println("tset");
-        return jedisClientWrapper;
+        ShardedJedisPool pool = JedisPoolBuilder.getJedisPool(config, infoList);
+        return new JedisClientWrapper(pool);
     }
 
-    public JedisPoolConfig getConfig() {
+    public ShardJedisPoolConfig getConfig() {
         return config;
     }
 
-    public void setConfig(JedisPoolConfig config) {
+    public void setConfig(ShardJedisPoolConfig config) {
         this.config = config;
+    }
+
+    public List<ShardJedisInfo> getInfoList() {
+        return infoList;
+    }
+
+    public void setInfoList(List<ShardJedisInfo> infoList) {
+        this.infoList = infoList;
     }
 }
